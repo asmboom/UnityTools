@@ -18,11 +18,25 @@ public static class FTools
 		{
 			if(i == 0)
 			{
-				output = array[i].ToString();
+				if(array[i] != null)
+				{
+					output = array[i].ToString();
+				}
+				else
+				{
+					output = " * ";
+				}
 			}
 			else
 			{
-				output = string.Concat(output, delimiter, array[i].ToString());
+				if(array[i] != null)
+				{
+					output = string.Concat(output, delimiter, array[i].ToString());
+				}
+				else
+				{
+					output = string.Concat(output, delimiter, " * ";	
+				}
 			}
 		}
 		return output;
