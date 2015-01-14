@@ -4,6 +4,29 @@ using System.Reflection;
 
 public static class FTools
 {
+	/// <summary>
+	/// Convert an Array containing Generic type objects to a readable string
+	/// *Remember to override your ToString() method
+	/// Usage:
+	/// Debug.Log(FTools.ArrayToString<MyType>(myTypeArray));
+	/// </summary>
+	public static string ArrayToString<T>(T[] array, string delimiter = " - ")
+	{
+		string output = string.Empty;
+		int l = array.Length;
+		for(int i = 0; i < l; ++i)
+		{
+			if(i == 0)
+			{
+				output = array[i].ToString();
+			}
+			else
+			{
+				output = string.Concat(output, delimiter, array[i].ToString());
+			}
+		}
+		return output;
+	}
 
 	public static Bounds ScreenOrthoBounds(Camera cam)
 	{
@@ -20,7 +43,7 @@ public static class FTools
 	}
 	
 	/// <summary>
-	/// Convert the RGBA to a Color Object
+	/// Converts a RGBA to a Color Object
 	/// </summary>
 	/// <returns>The float color.</returns>
 	/// <param name="R">Red - from 0 to 255</param>
