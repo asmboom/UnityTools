@@ -35,7 +35,7 @@ public static class FTools
 				}
 				else
 				{
-					output = string.Concat(output, delimiter, " * ";	
+					output = string.Concat(output, delimiter, " * ");	
 				}
 			}
 		}
