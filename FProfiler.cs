@@ -1,5 +1,5 @@
 /// <summary>
-/// Logger.
+/// Logger - Profiling Tool with time logging for each profiling call.
 /// @author: Fabio Paes Pedro
 /// </summary>
 using UnityEngine;
@@ -7,7 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Logger
+public class FProfiler
 {
 	private static Dictionary<string, string> _messages = new Dictionary<string, string>();
 	private static Dictionary<string, float> _times = new Dictionary<string, float>();
