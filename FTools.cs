@@ -42,6 +42,9 @@ public static class FTools
 		return output;
 	}
 
+	/// <summary>
+	/// Get screen Bounds for an Orthographic Camera setup
+	/// </summary>	
 	public static Bounds ScreenOrthoBounds(Camera cam)
 	{
 		float camHeight = cam.orthographicSize * 2f;
@@ -49,15 +52,18 @@ public static class FTools
 		return new Bounds(cam.transform.position, new Vector3(camHeight * scrRatio, camHeight, 0f));
 	}
 
-
-	public static bool IsInRange(Vector3 from, Vector3 to, float range)
+	/// <summary>
+	/// Optimized way (by using sqrMagnitude intead of Vector3.Distance) to know if an object is in range.
+	/// </summary>
+	/// <param name="range">The maximum allowed distance between these two Vectors</param>
+	public static bool IsInRange(Vector3 objectPosition, Vector3 targetPosition, float range)
 	{
-		return (to - from).sqrMagnitude < (range * range);
+		return (targetPosition - objectPosition).sqrMagnitude < (range * range);
 		
 	}
 	
 	/// <summary>
-	/// Converts a RGBA to a Color Object
+	/// Converts a R,G,B and A int to a Color Object
 	/// </summary>
 	/// <returns>The float color.</returns>
 	/// <param name="R">Red - from 0 to 255</param>
@@ -89,7 +95,7 @@ public static class FTools
 	}
 	
 	/// <summary>
-	/// Index Of COLOR
+	/// Index Of COLOR for the faster builtin array
 	/// </summary>
 	/// <returns>The of.</returns>
 	/// <param name="array">Array.</param>
@@ -107,7 +113,7 @@ public static class FTools
 	}
 	
 	/// <summary>
-	/// Index Of INT
+	/// Index Of INT for the faster builtin array
 	/// </summary>
 	/// <returns>The of.</returns>
 	/// <param name="array">Array.</param>
@@ -125,7 +131,7 @@ public static class FTools
 	}
 	
 	/// <summary>
-	/// Index Of STRING
+	/// Index Of STRING for the faster builtin array
 	/// </summary>
 	/// <returns>The of.</returns>
 	/// <param name="array">Array.</param>
@@ -143,13 +149,13 @@ public static class FTools
 	}
 	
 	/// <summary>
-	/// Destruir itens na array passada
+	/// Destroy GameObjects inside the "items" builtin array
 	/// </summary>
 	/// <param name='items'>
-	/// Items.
+	/// Items array.
 	/// </param>
 	/// <param name='immediate'>
-	/// Immediate.
+	/// Use DestroyImmediate (not recommended)
 	/// </param>
 	public static void DestroyItemsIn(GameObject[] items, bool immediate = false)
 	{
@@ -169,11 +175,11 @@ public static class FTools
 	}
 	
 	/// <summary>
-	/// Mistura duas cores de acordo com a percentagem em Amount
+	/// Blend two colors by the "amount" parameter
 	/// </summary>
-	/// <param name="c1">C1.</param>
-	/// <param name="c2">C2.</param>
-	/// <param name="amount">Amount.</param>
+	/// <param name="c1">Color 1.</param>
+	/// <param name="c2">Color 2.</param>
+	/// <param name="amount">Amount / percentage to mix.</param>
 	
 	public static Color Blend(Color c1, Color c2, float amount)
 	{
@@ -184,7 +190,7 @@ public static class FTools
 	}
 	
 	/// <summary>
-	/// Retorna campos dentro de outras classes
+	/// Return Field Values inside a Class
 	/// </summary>
 	/// <returns>
 	/// The field value.
@@ -217,10 +223,9 @@ public static class FTools
 	}
 	
 	/// <summary>
-	/// Retorna um float absoluto
+	/// Return an absolute float (positive)
 	/// </summary>
-	/// <returns>The abs.</returns>
-	/// <param name="n">N.</param>
+	/// <param name="n">the float to process.</param>
 	
 	public static float FloatAbs(float n)
 	{
@@ -228,10 +233,10 @@ public static class FTools
 	}
 	
 	/// <summary>
-	/// Retorna um int absoluto
+	/// Return an absolute int (positive)
 	/// </summary>
 	/// <returns>The abs.</returns>
-	/// <param name="n">N.</param>
+	/// <param name="n">The int to process.</param>
 	
 	public static int IntAbs(int n)
 	{
@@ -239,11 +244,8 @@ public static class FTools
 	}
 	
 	/// <summary>
-	///  Verifica se um float (value) está dentro de uma determinada faixa (range_a e range_b)
+	///  Checks if an float is inside a range (A to B)
 	/// </summary>
-	/// <returns>
-	/// value está dentro da faixa ou não.
-	/// </returns>
 	/// <param name='range_a'>
 	/// Range_a.
 	/// </param>
@@ -265,20 +267,10 @@ public static class FTools
 	}
 	
 	/// <summary>
-	/// Retorna um número dentro de uma faixa de acordo com a % passada
+	/// Return a proportional float inside a range.
+	/// Ex. a = 0f, b = 100f, percent = 0.5f - returns 50f
+	/// Ex. a = 23f, b = 55f, percent = 0.5f - returns 39f (which is between 22 and 55)
 	/// </summary>
-	/// <returns>
-	/// The float in range.
-	/// </returns>
-	/// <param name='a'>
-	/// A.
-	/// </param>
-	/// <param name='b'>
-	/// B.
-	/// </param>
-	/// <param name='percent'>
-	/// Percent.
-	/// </param>
 	
 	public static float GetFloatInRange(float a, float b, float percent)
 	{
@@ -287,20 +279,19 @@ public static class FTools
 	
 	
 	/// <summary>
-	/// Shuffle para arrays
+	/// Shuffle for builtin arrays
 	/// </summary>
-	/// <param name="list">List.</param>
-	/// <typeparam name="T">The 1st type parameter.</typeparam>
-	public static void Shuffle<T>(T[] list)
+	/// <param name="arr">Array.</param>
+	public static void Shuffle<T>(T[] arr)
 	{
-		int i = list.Length;
+		int i = arr.Length;
 		int j;
 		T item;
 		while (--i > 0)
 		{
-			item = list[i];
-			list[i] = list[j = Random.Range(0, (i + 1))];
-			list[j] = item;
+			item = arr[i];
+			arr[i] = arr[j = Random.Range(0, (i + 1))];
+			arr[j] = item;
 		}
 	}
 
