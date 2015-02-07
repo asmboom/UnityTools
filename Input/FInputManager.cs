@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class InputManager : MonoBehaviour
+public class FInputManager : MonoBehaviour
 {
 	public delegate void OnEscPressedAction();
 	public static event OnEscPressedAction OnEscPressed;
