@@ -52,21 +52,27 @@ public class FTimeManager : MonoBehaviour
     }
     void Awake()
     {
-        if (_instance != null) Debug.LogError("There's another instance of " + this + " already");
+        if (_instance != null)
+		{	
+			Destroy (this);
+			return;
+		}
         _instance = this;
+		Scale = Time.timeScale;
+		StartCoroutine("UpdateDeltaTime");
     }
     void OnDestroy()
     {
+		StopAllCoroutines ();
+		if(this != _instance)
+		{
+			Debug.LogWarning(this.gameObject.name+": There's another instance of " + this + " already at "+_instance.gameObject.name+". Destroying this new one.");
+			return;
+		}
         _instance = null;
     }
     #endregion
 
-
-    void Start()
-    {
-        Scale = Time.timeScale;
-        StartCoroutine("UpdateDeltaTime");
-    }
 
     public bool WillPause
     {

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 
 public static class FTools
@@ -294,6 +295,25 @@ public static class FTools
 			arr[j] = item;
 		}
 	}
+
+	/// <summary>
+	/// Shuffle for Lists
+	/// </summary>
+	/// <param name="list">List.</param>
+	public static void Shuffle<T>(List<T> list)
+	{
+		int i = list.Count;
+		int j;
+		T item;
+		while (--i > 0)
+		{
+			item = list[i];
+			list[i] = list[j = Random.Range(0, (i + 1))];
+			list[j] = item;
+		}
+	}
+
+
 
 	
 
