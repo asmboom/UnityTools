@@ -37,7 +37,7 @@ public class FProfiler
 		if(_times.ContainsKey(objKey))
 		{
 			float timeElapsed = Time.realtimeSinceStartup - _times[objKey];
-			Log(obj, String.Concat(objKey, ": profile complete - ", "time elapsed: ", timeElapsed.ToString(), " - ", _messages[objKey]), timeElapsed > 0.05);
+			Log(obj, String.Concat(objKey, ": profile complete - ", "time elapsed: ", timeElapsed.ToString(), " - ", _messages[objKey]), timeElapsed > 0.05f);
 			_times.Remove(objKey);
 			_messages.Remove(objKey);
 		}
