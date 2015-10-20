@@ -3,6 +3,9 @@ using System.Collections;
 
 public class FInputManager : MonoBehaviour
 {
+	public delegate void OnMouseDownAction();
+	public static event OnMouseDownAction OnMouseDown;
+
 	public delegate void OnEscPressedAction();
 	public static event OnEscPressedAction OnEscPressed;
 
@@ -43,6 +46,10 @@ public class FInputManager : MonoBehaviour
 		{
 			// Mouse Input
 			_inputPos = Input.mousePosition;
+			if(Input.GetMouseButtonDown(0))
+			{
+				OnMouseDown();
+			}
 		}
 
 		if(Input.GetKeyDown(KeyCode.Escape))

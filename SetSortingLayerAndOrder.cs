@@ -9,8 +9,8 @@ public class SetSortingLayerAndOrder : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		this.renderer.sortingLayerName = sortingLayer;
-		this.renderer.sortingOrder = sortingOrder;
+		this.GetComponent<Renderer>().sortingLayerName = sortingLayer;
+		this.GetComponent<Renderer>().sortingOrder = sortingOrder;
 	}
 }
 

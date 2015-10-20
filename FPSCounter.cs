@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NGUIFPS : MonoBehaviour {
+public class FPSCounter : MonoBehaviour {
+	/*
 	public  float updateInterval = 0.5F;
 	
 	private float accum   = 0; // FPS accumulated over the interval
@@ -47,4 +48,5 @@ public class NGUIFPS : MonoBehaviour {
 			frames = 0;
 		}
 	}
+	*/ // TODO
 }
