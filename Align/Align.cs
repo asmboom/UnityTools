@@ -21,26 +21,28 @@ public class Align : MonoBehaviour
 	public float margin = 0f;
 	Vector3 _selfPosition;
 	Bounds _cameraBounds;
-
 	
 	void Start ()
 	{
-		UpdateInterface();
+		UpdateInterface ();
 		AlignManager.OnOrientationChange += HandleOnOrientationChange;
 	}
 
-	void UpdateInterface()
+	void OnDestroy ()
 	{
-		if(autoSetToStatic)
-		{
+		AlignManager.OnOrientationChange -= HandleOnOrientationChange;
+	}
+
+	void UpdateInterface ()
+	{
+		if (autoSetToStatic) {
 			gameObject.isStatic = false;
 		}
 
 		_selfPosition = Vector3.zero;
-		_cameraBounds = FTools.ScreenOrthoBounds(Camera.main);
+		_cameraBounds = FTools.ScreenOrthoBounds (Camera.main);
 
-		switch(alignTo)
-		{
+		switch (alignTo) {
 		case AlignTo.TopLeft:
 			_selfPosition.x = (- _cameraBounds.extents.x * percent) + margin;
 			_selfPosition.y = (_cameraBounds.extents.y * percent) + margin;
@@ -76,15 +78,14 @@ public class Align : MonoBehaviour
 		}
 		
 		transform.position = _selfPosition;
-		if(autoSetToStatic)
-		{
+		if (autoSetToStatic) {
 			gameObject.isStatic = true;
 		}
 	}
 
 	void HandleOnOrientationChange ()
 	{
-		UpdateInterface();
+		UpdateInterface ();
 
 	}
 
