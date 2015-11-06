@@ -1,4 +1,4 @@
-UnityTools
+Unity FTools
 ==========
 
-Simple C# Tools for Unity for day-by-day tasks.
+C# stuff for day-by-day Unity3D tasks.
