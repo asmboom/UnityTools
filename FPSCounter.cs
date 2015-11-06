@@ -1,52 +1,46 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
-public class FPSCounter : MonoBehaviour {
-	/*
+public class FPSCounter : MonoBehaviour
+{
 	public  float updateInterval = 0.5F;
-	
-	private float accum   = 0; // FPS accumulated over the interval
-	private int   frames  = 0; // Frames drawn over the interval
-	private float timeleft; // Left time for current interval
-	
-	void Start(){
-		if( !GetComponent<UILabel>() ){
-			Debug.Log("FPS counter needs a UILabel component!");
+	private float _ac = 0; // FPS accumulated over the interval
+	private int   _frames = 0; // Frames drawn over the interval
+	private float _timeLeft; // Left time for current interval
+	private Text _textField;
+
+	void Start ()
+	{
+		_textField = GetComponent<Text> ();
+		if (_textField == null) {
+			Debug.Log ("FPS counter needs a Text component!");
 			enabled = false;
 			return;
 		}
-		timeleft = updateInterval;  
+		_timeLeft = updateInterval;  
 	}
 	
-	void Update(){
-		timeleft -= Time.deltaTime;
-		accum += Time.timeScale/Time.deltaTime;
-		++frames;
-		
-		// Interval ended - update GUI text and start new interval
-		if( timeleft <= 0.0 ){
-			// display two fractional digits (f2 format)
-			float fps = accum/frames;
-			string format = System.String.Format("{0:F2} FPS",fps);
-			GetComponent<UILabel>().text = format;
+	void Update ()
+	{
+		_timeLeft -= Time.deltaTime;
+		_ac += Time.timeScale / Time.deltaTime;
+		++_frames;
+
+		if (_timeLeft <= 0.0f) {
+			float fps = _ac / _frames;
+			_textField.text = string.Format ("{0:F2} FPS", fps);
 			
-			if(fps < 30)
-			{
-				GetComponent<UILabel>().material.color = Color.yellow;
+			if (fps < 30f) {
+				_textField.color = Color.yellow;
+			} else if (fps < 10f) {
+				_textField.color = Color.red;
+			} else {
+				_textField.color = Color.green;
 			}
-			else if(fps < 10)
-			{
-				GetComponent<UILabel>().material.color = Color.red;
-			}
-			else
-			{
-				GetComponent<UILabel>().material.color = Color.green;
-			}
-			//    DebugConsole.Log(format,level);
-			timeleft = updateInterval;
-			accum = 0.0F;
-			frames = 0;
+			_timeLeft = updateInterval;
+			_ac = 0.0f;
+			_frames = 0;
 		}
 	}
-	*/ // TODO
 }
