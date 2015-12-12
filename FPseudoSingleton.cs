@@ -24,7 +24,7 @@ public class FPseudoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 	/// <summary>
 	/// Applying the static reference
 	/// </summary>
-	void Awake ()
+	protected virtual void Awake ()
 	{
 		if (_instance != null) {	
 			Debug.LogWarning ("There is another instance of " + this + " already. Destroying the new one");
@@ -37,7 +37,7 @@ public class FPseudoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 	/// <summary>
 	/// If the object is the original instance, nullify the static reference
 	/// </summary>
-	void OnDestroy ()
+	protected virtual void OnDestroy ()
 	{
 		if (this == _instance) {
 			_instance = null;
